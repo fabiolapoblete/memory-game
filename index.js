@@ -6,18 +6,18 @@ class GameCard {
 }
 
 const CARDS = [
-  new GameCard("fries", "images/fries.png"),
-  new GameCard("cheeseburger", "images/cheeseburger.png"),
-  new GameCard("hotdog", "images/hotdog.png"),
-  new GameCard("ice-cream", "images/ice-cream.png"),
-  new GameCard("milkshake", "images/milkshake.png"),
-  new GameCard("pizza", "images/pizza.png"),
-  new GameCard("fries", "images/fries.png"),
-  new GameCard("cheeseburger", "images/cheeseburger.png"),
-  new GameCard("hotdog", "images/hotdog.png"),
-  new GameCard("ice-cream", "images/ice-cream.png"),
-  new GameCard("milkshake", "images/milkshake.png"),
-  new GameCard("pizza", "images/pizza.png"),
+  new GameCard("chameleon", "images/chameleon.png"),
+  new GameCard("fish", "images/fish.png"),
+  new GameCard("koala", "images/koala.png"),
+  new GameCard("owl", "images/owl.png"),
+  new GameCard("sloth", "images/sloth.png"),
+  new GameCard("prawn", "images/prawn.png"),
+  new GameCard("chameleon", "images/chameleon.png"),
+  new GameCard("fish", "images/fish.png"),
+  new GameCard("koala", "images/koala.png"),
+  new GameCard("owl", "images/owl.png"),
+  new GameCard("sloth", "images/sloth.png"),
+  new GameCard("prawn", "images/prawn.png"),
 ];
 
 console.log(CARDS);
@@ -29,7 +29,7 @@ const GRID = document.querySelector("#grid");
 function createGameBoard() {
   for (let i = 0; i < CARDS.length; i++) {
     const CARD = document.createElement("img");
-    CARD.setAttribute("src", "images/blank.png");
+    CARD.setAttribute("src", "images/blank.jpg");
     CARD.setAttribute("card-id", i);
 
     CARD.addEventListener("click", flipCard);
@@ -54,7 +54,7 @@ function flipCard() {
   chosenCardsId.push(cardId);
 
   if (chosenCards.length == 2) {
-    setTimeout(checkMatch, 200);
+    setTimeout(checkMatch, 2000);
   }
 }
 
@@ -67,7 +67,6 @@ function checkMatch() {
   let secondCard = chosenCardsId[1];
 
   if (chosenCards[0].name == chosenCards[1].name) {
-    alert("yay");
     GAMECARDS[firstCard].setAttribute("src", "images/white.png");
     GAMECARDS[secondCard].setAttribute("src", "images/white.png");
     GAMECARDS[firstCard].removeEventListener("click", flipCard);
@@ -75,20 +74,28 @@ function checkMatch() {
 
     cardsMatched.push(chosenCards);
   } else {
-    GAMECARDS[firstCard].setAttribute("src", "images/blank.png");
-    GAMECARDS[secondCard].setAttribute("src", "images/blank.png");
-    alert("sorry");
+    GAMECARDS[firstCard].setAttribute("src", "images/blank.jpg");
+    GAMECARDS[secondCard].setAttribute("src", "images/blank.jpg");
   }
 
   chosenCards = [];
   chosenCardsId = [];
 
   if (cardsMatched.length == CARDS.length / 2) {
-    RESULT.innerHTML = "Congratulations you won!!";
-    //Lägg på en overlay som på hangman samt retry btn.
-    //ändra bilder
-    //styling
+    gameWin();
   }
 }
 
+function gameWin() {
+  document.querySelector(".game-win").classList.add("show");
+}
+
 createGameBoard();
+
+let button = document.querySelector("button");
+
+button.addEventListener("click", () => {
+  document.querySelector(".game-win").classList.remove("show");
+  GRID.innerHTML = "";
+  createGameBoard();
+});
