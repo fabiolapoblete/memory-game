@@ -1,3 +1,3 @@
 # Memory-game
 
-##Simple memory game for JS practice
+## Simple memory game for JS practice
